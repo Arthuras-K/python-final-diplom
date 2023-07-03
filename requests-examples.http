@@ -2,25 +2,28 @@
 
 @baseUrl = http://localhost:8000/api/v1
 
-# создание продукта
-POST {{baseUrl}}/products/
+
+
+# загрузка товаров
+POST {{baseUrl}}/partner/update
 Content-Type: application/json
+Authorization: dc62e84ecc1be2df96fee1069062253ca8a0e760
 
 {
-  "title": "Помидор",
-  "description": "Лучшие помидоры на рынке"
+  "url=@": "C:/Users/Khanov/Desktop/projects/netology/python-final-diplom/data/shop1.yaml", 
+  "token": "dc62e84ecc1be2df96fee1069062253ca8a0e760"
 }
 
 ###
-
 # получение продуктов
-GET {{baseUrl}}/products/
+GET {{baseUrl}}/product/1/
 Content-Type: application/json
 
-###
 
+
+###
 # обновление продукта
-PATCH {{baseUrl}}/products/1/
+PATCH {{baseUrl}}/product/1/
 Content-Type: application/json
 
 {

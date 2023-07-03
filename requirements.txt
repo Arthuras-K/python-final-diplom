@@ -4,4 +4,5 @@ django-rest-passwordreset
 psycopg2-binary
 pyyaml
 ujson
-requests
+requests  
+celery
