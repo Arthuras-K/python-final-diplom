@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import UserManager, User, Shop, Category, Product, ProductInfo, Parameter, ProductParameter, Contact, Order, OrderItem, ConfirmEmailToken
+from .models import User, Shop, Product, ProductInfo, ProductParameter, Contact, Order, OrderItem
 
 
 class ContactSerializer(serializers.ModelSerializer):
@@ -10,7 +10,6 @@ class ContactSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'user': {'write_only': True}
         }
-
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -66,5 +65,16 @@ class OrderSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    pass
+    contacts = ContactSerializer(read_only=True, many=True)
+    class Meta:
+        model = User
+        fields = ('id', 'first_name', 'last_name', 'email', 'company', 'position', 'contacts')
+        read_only_fields = ('id',)
 
+
+class ShopSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Shop
+        fields = ('id', 'name', 'state',)
+        read_only_fields = ('id',)
