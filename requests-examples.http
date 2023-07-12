@@ -1,21 +1,77 @@
-# примеры API-запросов
-
 @baseUrl = http://localhost:8000/api/v1
+
+###
+# регистрация нового пользователя
+POST {{baseUrl}}/user/register
+Content-Type: application/json
+
+{
+  "first_name": "Art",
+  "last_name": "King",
+  "email": "arturas.king@mail.ru",
+  "password": "diplom123",
+  "company": "UK",
+  "position": "engineer"
+}
+
+
+###
+# подтверждение почты через токен отправленный на почту
+POST {{baseUrl}}/user/register/confirm
+Content-Type: application/json
+
+{
+  "email": "arturas.king@mail.ru",
+  "token": "900dc7c9a85dbfa32c"
+}
+
+
+###
+# авторизация
+POST {{baseUrl}}/user/login
+Content-Type: application/json
+
+{
+  "email": "arturas.king@mail.ru",
+  "password": "diplom123"
+}
+
+
+###
+# получение данных о пользователе
+GET {{baseUrl}}/user/details
+Authorization: Token e1cfdf5781e27c98261e90e08050c3fafceb3978
+
+
+###
+# редактирование данных о пользователе
+POST {{baseUrl}}/user/details
+Content-Type: application/json
+Authorization: Token e1cfdf5781e27c98261e90e08050c3fafceb3978
+
+{
+  "first_name": "Stiven"
+}
+
+
+###
+# получение статуса
+GET {{baseUrl}}/partner/state
+Authorization: Token e1cfdf5781e27c98261e90e08050c3fafceb3978
+
+
+
 
 ###
 # загрузка товаров
 POST {{baseUrl}}/partner/update
 Content-Type: application/json
-Authorization: Token dc62e84ecc1be2df96fee1069062253ca8a0e760
+Authorization: Token e1cfdf5781e27c98261e90e08050c3fafceb3978
 
 {
-  "url": "https://disk.yandex.ru/d/WU0zw2MbhB2oTA" 
+  "url": "urldata" 
 }
 
-###
-# получение продуктов
-GET {{baseUrl}}/product/1/
-Content-Type: application/json
 
 
 
