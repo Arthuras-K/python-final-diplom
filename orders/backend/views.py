@@ -15,7 +15,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.viewsets import ReadOnlyModelViewSet
 
-from .models import Shop, Category, Product, ProductInfo, Parameter, ProductParameter, Order, OrderItem, ConfirmEmailToken
+from .models import Shop, Contact, Category, Product, ProductInfo, Parameter, ProductParameter, Order, OrderItem, ConfirmEmailToken
 from .serializers import ProductInfoSerializer, OrderItemSerializer, OrderSerializer, UserSerializer, ShopSerializer, ContactSerializer 
 
 from .signals import new_user_registered, new_order
@@ -151,7 +151,7 @@ class ContactView(APIView):
             return JsonResponse({'Status': False, 'Error': 'Log in required'}, status=403)
 
         if {'city', 'street', 'phone'}.issubset(request.data):
-            request.data._mutable = True
+            # request.data._mutable = True
             request.data.update({'user': request.user.id})
             serializer = ContactSerializer(data=request.data)
 
@@ -386,11 +386,8 @@ class BasketView(APIView):
                             return JsonResponse({'Status': False, 'Errors': str(error)})
                         else:
                             objects_created += 1
-
                     else:
-
                         JsonResponse({'Status': False, 'Errors': serializer.errors})
-
                 return JsonResponse({'Status': True, 'Создано объектов': objects_created})
         return JsonResponse({'Status': False, 'Errors': 'Не указаны все необходимые аргументы'})
 

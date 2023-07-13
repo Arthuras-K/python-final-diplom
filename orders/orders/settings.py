@@ -146,6 +146,15 @@ AUTH_USER_MODEL = 'backend.User'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
+# Настроить
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_HOST_USER = 'arturas.king@mail.ru'
+EMAIL_HOST_PASSWORD = 'password'
+EMAIL_PORT = '465'
+EMAIL_USE_SSL = True
+SERVER_EMAIL = EMAIL_HOST_USER
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 

@@ -50,16 +50,28 @@ Content-Type: application/json
 Authorization: Token e1cfdf5781e27c98261e90e08050c3fafceb3978
 
 {
-  "first_name": "Stiven"
+  "first_name": "Stiven",
+  "type": "shop"
 }
 
 
 ###
-# получение статуса
-GET {{baseUrl}}/partner/state
+# получение контактов пользователя
+GET {{baseUrl}}/user/contact
 Authorization: Token e1cfdf5781e27c98261e90e08050c3fafceb3978
 
 
+###
+# редактирование контактов пользователя
+POST {{baseUrl}}/user/contact
+Content-Type: application/json
+Authorization: Token e1cfdf5781e27c98261e90e08050c3fafceb3978
+
+{
+  "city": "London",
+  "street": "Bigstreet",
+  "phone": "89210000001"
+}
 
 
 ###
@@ -73,75 +85,61 @@ Authorization: Token e1cfdf5781e27c98261e90e08050c3fafceb3978
 }
 
 
-
+###
+# получение статуса работы магазина
+GET {{baseUrl}}/partner/state
+Authorization: Token e1cfdf5781e27c98261e90e08050c3fafceb3978
 
 
 ###
-# обновление продукта
-PATCH {{baseUrl}}/product/1/
-Content-Type: application/json
-в
-{
-  "description": "Самые сочные и ароматные помидорки"
-}
+# посмотреть заказы для магазина
+GET {{baseUrl}}/partner/orders
+Authorization: Token e1cfdf5781e27c98261e90e08050c3fafceb3978
+
 
 ###
-
-# удаление продукта
-DELETE {{baseUrl}}/products/1/
+# получить все продукты
+GET {{baseUrl}}/product
 Content-Type: application/json
+
 
 ###
+# добавить в корзину
+POST {{baseUrl}}/basket
+Content-Type: application/x-www-form-urlencoded
+Authorization: Token 7a37486b0ab42ac81fc7da2038c97ad6196679b7
 
-# поиск продуктов по названию и описанию
-GET {{baseUrl}}/products/?search=помидор
-Content-Type: application/json
+items=[
+        {
+        "product_info": 1,
+        "quantity": 66
+        },
+        {
+        "product_info": 2,
+        "quantity": 99
+        }
+    ]
 
-###
-
-# создание склада
-POST {{baseUrl}}/stocks/
-Content-Type: application/json
-
-{
-  "address": "мой адрес не дом и не улица, мой адрес сегодня такой: www.ленинград-спб.ru3",
-  "positions": [
-    {
-      "product": 2,
-      "quantity": 250,
-      "price": 120.50
-    },
-    {
-      "product": 3,
-      "quantity": 100,
-      "price": 180
-    }
-  ]
-}
 
 ###
+# посмотреть корзину
+GET {{baseUrl}}/basket
+Authorization: Token 7a37486b0ab42ac81fc7da2038c97ad6196679b7
 
-# обновляем записи на складе
-PATCH {{baseUrl}}/stocks/4/
+
+###
+# создать заказ из товаров в корзине
+POST {{baseUrl}}/order
 Content-Type: application/json
+Authorization: Token 7a37486b0ab42ac81fc7da2038c97ad6196679b7
 
 {
-  "positions": [
-    {
-      "product": 2,
-      "quantity": 100,
-      "price": 130.80
-    },
-    {
-      "product": 3,
-      "quantity": 243,
-      "price": 145
-    }
-  ]
+"id": "3",
+"contact": "1"
 }
 
-###
 
-# поиск складов, где есть определенный продукт
-GET {{baseUrl}}/stocks/?products=2
-Content-Type: application/json
+###
+# посмотреть заказы
+GET {{baseUrl}}/order
+Authorization: Token 7a37486b0ab42ac81fc7da2038c97ad6196679b7
